@@ -19,23 +19,50 @@
 
 // *********************************************************************************************************************
 #pragma mark - Property
-@property (strong, nonatomic) UIView *topV;
-@property (strong, nonatomic) UIView *bottomV;
-@property (strong, nonatomic) UIImageView *imageV;
-@property (strong, nonatomic) UIView *bgV;
+// 背景透明视图
+@property (strong, nonatomic) UIView *blurBackgroundV;
+
+// 主显示视图
 @property (strong, nonatomic) UIView *alertV;
 
-@property (strong, nonatomic) UIImageView *avatarV;
-@property (strong, nonatomic) UILabel *nameLab;
-@property (strong, nonatomic) UIButton *followBtn;
-@property (strong, nonatomic) UIButton *seeBtn;
-@property (strong, nonatomic) UIButton *likeBtn;
-@property (strong, nonatomic) UIButton *shareBtn;
-@property (strong, nonatomic) UILabel *seeLab;
-@property (strong, nonatomic) UILabel *likeLab;
+// 中央提示区图片视图
+@property (strong, nonatomic) UIImageView *centerImageV;
 
+// 播放按钮
 @property (strong, nonatomic) UIButton *playBtn;
-@property (strong, nonatomic) UIView *videoShadowV;
+
+// 播放视频thumbnail Blur
+@property (strong, nonatomic) UIView *thumbnailBlurV;
+
+// 顶部 Banner 视图
+@property (strong, nonatomic) UIView *topBannerV;
+
+// 用户头像视图     ( topBannerV )
+@property (strong, nonatomic) UIImageView *avatarV;
+
+// 标题栏          ( topBannerV )
+@property (strong, nonatomic) UILabel *titleLab;
+
+// 关注按钮        ( topBannerV )
+@property (strong, nonatomic) UIButton *followBtn;
+
+// 底部 Banner 视图
+@property (strong, nonatomic) UIView *bottomBannerV;
+
+// 已阅读按钮      ( bottomBannerV )
+@property (strong, nonatomic) UIButton *viewCountBtn;
+
+// 点赞按钮        ( bottomBannerV )
+@property (strong, nonatomic) UIButton *likeCountBtn;
+
+// 分享按钮        ( bottomBannerV )
+@property (strong, nonatomic) UIButton *shareBtn;
+
+// 已阅读数量标签   ( bottomBannerV )
+@property (strong, nonatomic) UILabel *viewCountLab;
+
+// 点赞数量标签    ( bottomBannerV )
+@property (strong, nonatomic) UILabel *likeCountLab;
 
 @end
 
@@ -103,8 +130,8 @@
 #pragma mark - Private
 - (void)setupUI:(CGRect)frame {
     
-    // BgView
-    self.bgV = ({
+    // blurBackgroundView
+    self.blurBackgroundV = ({
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
         view.backgroundColor = [UIColor blackColor];
         view.alpha = 0.65;
@@ -114,7 +141,7 @@
         [view addGestureRecognizer:tap];
         view;
     });
-    [self addSubview:self.bgV];
+    [self addSubview:self.blurBackgroundV];
     
     // alertView
     self.alertV = ({
@@ -133,16 +160,16 @@
 //    }];
     
     
-    // BottomView
-    self.bottomV = ({
+    // bottomBannerView
+    self.bottomBannerV = ({
         UIView *view = [[UIView alloc] init];
         //fix.
 //        view.backgroundColor = [UIColor colorWithHex:0xeeeeee];
         view;
     });
-    [self.alertV addSubview:self.bottomV];
+    [self.alertV addSubview:self.bottomBannerV];
     // fix.位置
-//    [self.bottomV mas_makeConstraints:^(MASConstraintMaker *make) {
+//    [self.bottomBannerV mas_makeConstraints:^(MASConstraintMaker *make) {
 //        make.bottom.equalTo(self.alertV.mas_bottom);
 //        make.width.equalTo(self.alertV.mas_width);
 //        make.leading.equalTo(self.alertV.mas_leading);
@@ -167,19 +194,19 @@
 //        make.top.equalTo(self.alertV.mas_top);
 //        make.leading.equalTo(self.alertV.mas_leading);
 //        make.width.equalTo(self.alertV.mas_width);
-//        make.bottom.equalTo(self.bottomV.mas_top);
+//        make.bottom.equalTo(self.bottomBannerV.mas_top);
 //    }];
     
-    // TopView
-    self.topV = ({
+    // topBannerView
+    self.topBannerV = ({
         UIView *view = [[UIView alloc] init];
         //fix.
 //        view.backgroundColor = [UIColor colorWithHex:kThemeColor];
         view;
     });
-    [self.alertV addSubview:self.topV];
+    [self.alertV addSubview:self.topBannerV];
     //fix.位置
-//    [self.topV mas_makeConstraints:^(MASConstraintMaker *make) {
+//    [self.topBannerV mas_makeConstraints:^(MASConstraintMaker *make) {
 //        make.top.equalTo(self.alertV.mas_top);
 //        make.width.equalTo(self.alertV.mas_width);
 //        make.leading.equalTo(self.alertV.mas_leading);
@@ -195,11 +222,11 @@
         imageV.clipsToBounds = YES;
         imageV;
     });
-    [self.topV addSubview:self.avatarV];
+    [self.topBannerV addSubview:self.avatarV];
     //fix.位置
 //    [self.avatarV mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.centerY.equalTo(self.topV.mas_centerY);
-//        make.leading.equalTo(self.topV.mas_leading).offset(5);
+//        make.centerY.equalTo(self.topBannerV.mas_centerY);
+//        make.leading.equalTo(self.topBannerV.mas_leading).offset(5);
 //        make.size.mas_equalTo(CGSizeMake(40, 40));
 //    }];
     
@@ -217,11 +244,11 @@
         [btn addSubview:imageV];
         btn;
     });
-    [self.topV addSubview:self.followBtn];
+    [self.topBannerV addSubview:self.followBtn];
     //fix.位置
 //    [self.followBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.centerY.equalTo(self.topV.mas_centerY);
-//        make.trailing.equalTo(self.topV.mas_trailing).offset(-10);
+//        make.centerY.equalTo(self.topBannerV.mas_centerY);
+//        make.trailing.equalTo(self.topBannerV.mas_trailing).offset(-10);
 //        make.size.mas_equalTo(CGSizeMake(80, 30));
 //    }];
     
@@ -235,7 +262,7 @@
         lab.lineBreakMode = NSLineBreakByTruncatingTail;
         lab;
     });
-    [self.topV addSubview:self.nameLab];
+    [self.topBannerV addSubview:self.nameLab];
     //fix.位置
 //    [self.nameLab mas_makeConstraints:^(MASConstraintMaker *make) {
 //        make.top.equalTo(self.avatarV.mas_top);
@@ -251,11 +278,11 @@
         [btn addTarget:self action:@selector(onSeeBtnTapped:) forControlEvents:UIControlEventTouchUpInside];
         btn;
     });
-    [self.bottomV addSubview:self.seeBtn];
+    [self.bottomBannerV addSubview:self.seeBtn];
     //fix.位置
 //    [self.seeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.centerY.equalTo(self.bottomV.mas_centerY);
-//        make.leading.equalTo(self.bottomV.mas_leading).offset(frame.size.width / 8);
+//        make.centerY.equalTo(self.bottomBannerV.mas_centerY);
+//        make.leading.equalTo(self.bottomBannerV.mas_leading).offset(frame.size.width / 8);
 //        make.size.mas_equalTo(CGSizeMake(30, 30));
 //    }];
     
@@ -266,11 +293,11 @@
         lab.textColor = [UIColor lightGrayColor];
         lab;
     });
-    [self.bottomV addSubview:self.seeLab];
+    [self.bottomBannerV addSubview:self.seeLab];
     //fix.位置
 //    [self.seeLab mas_makeConstraints:^(MASConstraintMaker *make) {
 //        make.leading.equalTo(self.seeBtn.mas_trailing).offset(5);
-//        make.centerY.equalTo(self.bottomV.mas_centerY);
+//        make.centerY.equalTo(self.bottomBannerV.mas_centerY);
 //    }];
     
     // LikeBtn
@@ -281,11 +308,11 @@
         [btn addTarget:self action:@selector(onLikeBtnTapped:) forControlEvents:UIControlEventTouchUpInside];
         btn;
     });
-    [self.bottomV addSubview:self.likeBtn];
+    [self.bottomBannerV addSubview:self.likeBtn];
     //fix.位置
 //    [self.likeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.centerY.equalTo(self.bottomV.mas_centerY);
-//        make.centerX.equalTo(self.bottomV.mas_centerX);
+//        make.centerY.equalTo(self.bottomBannerV.mas_centerY);
+//        make.centerX.equalTo(self.bottomBannerV.mas_centerX);
 //        make.size.mas_equalTo(CGSizeMake(25, 25));
 //    }];
 //    
@@ -300,11 +327,11 @@
         [lab addGestureRecognizer:tap];
         lab;
     });
-    [self.bottomV addSubview:self.likeLab];
+    [self.bottomBannerV addSubview:self.likeLab];
     //fix.位置
 //    [self.likeLab mas_makeConstraints:^(MASConstraintMaker *make) {
 //        make.leading.equalTo(self.likeBtn.mas_trailing).offset(5);
-//        make.centerY.equalTo(self.bottomV.mas_centerY);
+//        make.centerY.equalTo(self.bottomBannerV.mas_centerY);
 //    }];
     
     // shareBtn 
@@ -314,11 +341,11 @@
         [btn addTarget:self action:@selector(onShareBtnTapped:) forControlEvents:UIControlEventTouchUpInside];
         btn;
     });
-    [self.bottomV addSubview:self.shareBtn];
+    [self.bottomBannerV addSubview:self.shareBtn];
     //fix.位置
 //    [self.shareBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.centerY.equalTo(self.bottomV.mas_centerY);
-//        make.trailing.equalTo(self.bottomV.mas_trailing).offset(- frame.size.width / 8);
+//        make.centerY.equalTo(self.bottomBannerV.mas_centerY);
+//        make.trailing.equalTo(self.bottomBannerV.mas_trailing).offset(- frame.size.width / 8);
 //        make.size.mas_equalTo(CGSizeMake(30, 30));
 //    }];
     
@@ -399,7 +426,7 @@
 //                            options:SDWebImageProgressiveDownload | SDWebImageRetryFailed];
 //                   
 //    if(nil == self.school) {
-//        self.topV.hidden = YES;
+//        self.topBannerV.hidden = YES;
 //    } else {
 ////        self.nameLab.text = self.title;
 //        if (self.school) {
@@ -409,7 +436,7 @@
 //        {
 //            self.nameLab.text = self.title;
 //        }
-//        self.topV.hidden = NO;
+//        self.topBannerV.hidden = NO;
 //    }
 //                   
 //    if([self.type isEqualToString:kDataTypePhoto]) {
