@@ -8,13 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		901ECA421D4E40D00099B425 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 901ECA411D4E40D00099B425 /* main.m */; };
-		901ECA451D4E40D00099B425 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 901ECA441D4E40D00099B425 /* AppDelegate.m */; };
-		901ECA481D4E40D00099B425 /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 901ECA471D4E40D00099B425 /* MasterViewController.m */; };
-		901ECA4B1D4E40D00099B425 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 901ECA4A1D4E40D00099B425 /* DetailViewController.m */; };
 		901ECA4E1D4E40D00099B425 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 901ECA4C1D4E40D00099B425 /* Main.storyboard */; };
 		901ECA501D4E40D00099B425 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 901ECA4F1D4E40D00099B425 /* Assets.xcassets */; };
 		901ECA531D4E40D00099B425 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 901ECA511D4E40D00099B425 /* LaunchScreen.storyboard */; };
 		901ECA5E1D4E40D00099B425 /* JGPopDetailViewUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 901ECA5D1D4E40D00099B425 /* JGPopDetailViewUITests.m */; };
+		901ECA6E1D4E42150099B425 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 901ECA6D1D4E42150099B425 /* AppDelegate.m */; };
+		901ECA731D4E421B0099B425 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 901ECA701D4E421B0099B425 /* DetailViewController.m */; };
+		901ECA741D4E421B0099B425 /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 901ECA721D4E421B0099B425 /* MasterViewController.m */; };
+		901ECA771D4E42560099B425 /* JGPopDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 901ECA761D4E42560099B425 /* JGPopDetailView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,12 +31,6 @@
 /* Begin PBXFileReference section */
 		901ECA3D1D4E40D00099B425 /* JGPopDetailView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JGPopDetailView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		901ECA411D4E40D00099B425 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		901ECA431D4E40D00099B425 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		901ECA441D4E40D00099B425 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		901ECA461D4E40D00099B425 /* MasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MasterViewController.h; sourceTree = "<group>"; };
-		901ECA471D4E40D00099B425 /* MasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MasterViewController.m; sourceTree = "<group>"; };
-		901ECA491D4E40D00099B425 /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
-		901ECA4A1D4E40D00099B425 /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		901ECA4D1D4E40D00099B425 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		901ECA4F1D4E40D00099B425 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		901ECA521D4E40D00099B425 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -43,6 +38,14 @@
 		901ECA591D4E40D00099B425 /* JGPopDetailViewUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JGPopDetailViewUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		901ECA5D1D4E40D00099B425 /* JGPopDetailViewUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JGPopDetailViewUITests.m; sourceTree = "<group>"; };
 		901ECA5F1D4E40D00099B425 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		901ECA6C1D4E42150099B425 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = App/AppDelegate.h; sourceTree = "<group>"; };
+		901ECA6D1D4E42150099B425 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = App/AppDelegate.m; sourceTree = "<group>"; };
+		901ECA6F1D4E421B0099B425 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DetailViewController.h; path = JGPopDetailView/Controllers/DetailViewController.h; sourceTree = "<group>"; };
+		901ECA701D4E421B0099B425 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DetailViewController.m; path = JGPopDetailView/Controllers/DetailViewController.m; sourceTree = "<group>"; };
+		901ECA711D4E421B0099B425 /* MasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MasterViewController.h; path = JGPopDetailView/Controllers/MasterViewController.h; sourceTree = "<group>"; };
+		901ECA721D4E421B0099B425 /* MasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MasterViewController.m; path = JGPopDetailView/Controllers/MasterViewController.m; sourceTree = "<group>"; };
+		901ECA751D4E42560099B425 /* JGPopDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JGPopDetailView.h; path = JGPopDetailView/JGPopDetailView.h; sourceTree = "<group>"; };
+		901ECA761D4E42560099B425 /* JGPopDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JGPopDetailView.m; path = JGPopDetailView/JGPopDetailView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,16 +87,10 @@
 		901ECA3F1D4E40D00099B425 /* JGPopDetailView */ = {
 			isa = PBXGroup;
 			children = (
-				901ECA431D4E40D00099B425 /* AppDelegate.h */,
-				901ECA441D4E40D00099B425 /* AppDelegate.m */,
-				901ECA461D4E40D00099B425 /* MasterViewController.h */,
-				901ECA471D4E40D00099B425 /* MasterViewController.m */,
-				901ECA491D4E40D00099B425 /* DetailViewController.h */,
-				901ECA4A1D4E40D00099B425 /* DetailViewController.m */,
-				901ECA4C1D4E40D00099B425 /* Main.storyboard */,
-				901ECA4F1D4E40D00099B425 /* Assets.xcassets */,
-				901ECA511D4E40D00099B425 /* LaunchScreen.storyboard */,
-				901ECA541D4E40D00099B425 /* Info.plist */,
+				901ECA6B1D4E41D90099B425 /* JGPopDetailView */,
+				901ECA6A1D4E41C10099B425 /* Contorllers */,
+				901ECA681D4E41710099B425 /* App */,
+				901ECA691D4E41780099B425 /* Resource */,
 				901ECA401D4E40D00099B425 /* Supporting Files */,
 			);
 			path = JGPopDetailView;
@@ -114,6 +111,47 @@
 				901ECA5F1D4E40D00099B425 /* Info.plist */,
 			);
 			path = JGPopDetailViewUITests;
+			sourceTree = "<group>";
+		};
+		901ECA681D4E41710099B425 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				901ECA6C1D4E42150099B425 /* AppDelegate.h */,
+				901ECA6D1D4E42150099B425 /* AppDelegate.m */,
+			);
+			name = App;
+			sourceTree = "<group>";
+		};
+		901ECA691D4E41780099B425 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				901ECA4C1D4E40D00099B425 /* Main.storyboard */,
+				901ECA4F1D4E40D00099B425 /* Assets.xcassets */,
+				901ECA511D4E40D00099B425 /* LaunchScreen.storyboard */,
+				901ECA541D4E40D00099B425 /* Info.plist */,
+			);
+			name = Resource;
+			sourceTree = "<group>";
+		};
+		901ECA6A1D4E41C10099B425 /* Contorllers */ = {
+			isa = PBXGroup;
+			children = (
+				901ECA6F1D4E421B0099B425 /* DetailViewController.h */,
+				901ECA701D4E421B0099B425 /* DetailViewController.m */,
+				901ECA711D4E421B0099B425 /* MasterViewController.h */,
+				901ECA721D4E421B0099B425 /* MasterViewController.m */,
+			);
+			name = Contorllers;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		901ECA6B1D4E41D90099B425 /* JGPopDetailView */ = {
+			isa = PBXGroup;
+			children = (
+				901ECA751D4E42560099B425 /* JGPopDetailView.h */,
+				901ECA761D4E42560099B425 /* JGPopDetailView.m */,
+			);
+			name = JGPopDetailView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -216,10 +254,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				901ECA451D4E40D00099B425 /* AppDelegate.m in Sources */,
-				901ECA481D4E40D00099B425 /* MasterViewController.m in Sources */,
 				901ECA421D4E40D00099B425 /* main.m in Sources */,
-				901ECA4B1D4E40D00099B425 /* DetailViewController.m in Sources */,
+				901ECA6E1D4E42150099B425 /* AppDelegate.m in Sources */,
+				901ECA771D4E42560099B425 /* JGPopDetailView.m in Sources */,
+				901ECA731D4E421B0099B425 /* DetailViewController.m in Sources */,
+				901ECA741D4E421B0099B425 /* MasterViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
