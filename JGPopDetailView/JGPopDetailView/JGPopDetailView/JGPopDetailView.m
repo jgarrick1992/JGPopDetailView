@@ -1,21 +1,21 @@
 //
-//  VsSchoolDetailAlertView.m
+//  JGPopDetailView.m
 //  veritas
 //
 //  Created by Ji Fu on 16/6/6.
 //  Copyright © 2016年 iHugo. All rights reserved.
 //
 
-#import "MacroUtility.h"
-#import "Masonry.h"
-#import "UIColor+Hex.h"
-#import "VsSchoolDetailAlertView.h"
-#import <SDWebImage+ExtensionSupport/UIImageView+WebCache.h>
-#import "VsShareManager.h"
-#import "UIDevice+Language.h"
+#import "JGPopDetailView.h"
 
 
-@interface VsSchoolDetailAlertView ()
+#define kScreenWidth [UIScreen mainScreen].bounds.size.width
+#define kScreenHeight [UIScreen mainScreen].bounds.size.height
+#define kStatusBarHeight 20
+#define kNavigationBarHeight 50
+#define kTabBarHeight 48
+
+@interface JGPopDetailView ()
 
 // *********************************************************************************************************************
 #pragma mark - Property
@@ -39,7 +39,7 @@
 
 @end
 
-@implementation VsSchoolDetailAlertView
+@implementation JGPopDetailView
 
 // *********************************************************************************************************************
 #pragma mark - Init Mehtod
@@ -60,15 +60,15 @@
 }
 
 - (void)onFollowBtnTapped:(id)sender {
-    [[VsShareManager sharedManager] onFollowWithSchool:self.school withViewController:self.vc success:nil];
+    // fix.
 }
 
 - (void)onShareBtnTapped:(id)sender {
-    [[VsShareManager sharedManager] onShareModel:self.model];
+    // fix.
 }
 
 - (void)onSeeBtnTapped:(id)sender {
-    
+   // fix.
 }
 
 - (void)onLikeBtnTapped:(id)sender {
@@ -125,26 +125,29 @@
         view;
     });
     [self addSubview:self.alertV];
-    [self.alertV mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.mas_centerX);
-        make.centerY.equalTo(self.mas_centerY);
-        make.size.mas_equalTo(CGSizeMake(frame.size.width, frame.size.height));
-    }];
+    // fix.位置
+//    [self.alertV mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.centerX.equalTo(self.mas_centerX);
+//        make.centerY.equalTo(self.mas_centerY);
+//        make.size.mas_equalTo(CGSizeMake(frame.size.width, frame.size.height));
+//    }];
     
     
     // BottomView
     self.bottomV = ({
         UIView *view = [[UIView alloc] init];
-        view.backgroundColor = [UIColor colorWithHex:0xeeeeee];
+        //fix.
+//        view.backgroundColor = [UIColor colorWithHex:0xeeeeee];
         view;
     });
     [self.alertV addSubview:self.bottomV];
-    [self.bottomV mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.alertV.mas_bottom);
-        make.width.equalTo(self.alertV.mas_width);
-        make.leading.equalTo(self.alertV.mas_leading);
-        make.height.mas_equalTo(50);
-    }];
+    // fix.位置
+//    [self.bottomV mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.bottom.equalTo(self.alertV.mas_bottom);
+//        make.width.equalTo(self.alertV.mas_width);
+//        make.leading.equalTo(self.alertV.mas_leading);
+//        make.height.mas_equalTo(50);
+//    }];
     
     // ImageView
     self.imageV = ({
@@ -159,26 +162,29 @@
         imageV;
     });
     [self.alertV addSubview:self.imageV];
-    [self.imageV mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.alertV.mas_top);
-        make.leading.equalTo(self.alertV.mas_leading);
-        make.width.equalTo(self.alertV.mas_width);
-        make.bottom.equalTo(self.bottomV.mas_top);
-    }];
+    // fix.位置
+//    [self.imageV mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(self.alertV.mas_top);
+//        make.leading.equalTo(self.alertV.mas_leading);
+//        make.width.equalTo(self.alertV.mas_width);
+//        make.bottom.equalTo(self.bottomV.mas_top);
+//    }];
     
     // TopView
     self.topV = ({
         UIView *view = [[UIView alloc] init];
-        view.backgroundColor = [UIColor colorWithHex:kThemeColor];
+        //fix.
+//        view.backgroundColor = [UIColor colorWithHex:kThemeColor];
         view;
     });
     [self.alertV addSubview:self.topV];
-    [self.topV mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.alertV.mas_top);
-        make.width.equalTo(self.alertV.mas_width);
-        make.leading.equalTo(self.alertV.mas_leading);
-        make.height.mas_equalTo(50);
-    }];
+    //fix.位置
+//    [self.topV mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(self.alertV.mas_top);
+//        make.width.equalTo(self.alertV.mas_width);
+//        make.leading.equalTo(self.alertV.mas_leading);
+//        make.height.mas_equalTo(50);
+//    }];
 
     // AvatarView
     self.avatarV = ({
@@ -190,18 +196,19 @@
         imageV;
     });
     [self.topV addSubview:self.avatarV];
-    [self.avatarV mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.topV.mas_centerY);
-        make.leading.equalTo(self.topV.mas_leading).offset(5);
-        make.size.mas_equalTo(CGSizeMake(40, 40));
-    }];
+    //fix.位置
+//    [self.avatarV mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.centerY.equalTo(self.topV.mas_centerY);
+//        make.leading.equalTo(self.topV.mas_leading).offset(5);
+//        make.size.mas_equalTo(CGSizeMake(40, 40));
+//    }];
     
     // followBtn
     self.followBtn = ({
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         btn.layer.cornerRadius = 3;
         [btn setTitle:NSLocalizedString(@"follow", nil) forState:UIControlStateNormal];
-        [btn setTitleColor:[UIColor colorWithHex:kThemeColor] forState:UIControlStateNormal];
+//        [btn setTitleColor:[UIColor colorWithHex:kThemeColor] forState:UIControlStateNormal];
         [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 30, 0, 0)];
         [btn setBackgroundColor:[UIColor whiteColor]];
         [btn addTarget:self action:@selector(onFollowBtnTapped:) forControlEvents:UIControlEventTouchUpInside];
@@ -211,11 +218,12 @@
         btn;
     });
     [self.topV addSubview:self.followBtn];
-    [self.followBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.topV.mas_centerY);
-        make.trailing.equalTo(self.topV.mas_trailing).offset(-10);
-        make.size.mas_equalTo(CGSizeMake(80, 30));
-    }];
+    //fix.位置
+//    [self.followBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.centerY.equalTo(self.topV.mas_centerY);
+//        make.trailing.equalTo(self.topV.mas_trailing).offset(-10);
+//        make.size.mas_equalTo(CGSizeMake(80, 30));
+//    }];
     
     // nameLabel
     self.nameLab = ({
@@ -228,13 +236,14 @@
         lab;
     });
     [self.topV addSubview:self.nameLab];
-    [self.nameLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.avatarV.mas_top);
-        make.centerY.equalTo(self.avatarV.mas_centerY);
-        make.leading.equalTo(self.avatarV.mas_trailing).offset(5);
-        make.trailing.equalTo(self.followBtn.mas_leading).offset(-10);
-    }];
-    
+    //fix.位置
+//    [self.nameLab mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(self.avatarV.mas_top);
+//        make.centerY.equalTo(self.avatarV.mas_centerY);
+//        make.leading.equalTo(self.avatarV.mas_trailing).offset(5);
+//        make.trailing.equalTo(self.followBtn.mas_leading).offset(-10);
+//    }];
+//    
     // seeBtn
     self.seeBtn = ({
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -243,11 +252,12 @@
         btn;
     });
     [self.bottomV addSubview:self.seeBtn];
-    [self.seeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.bottomV.mas_centerY);
-        make.leading.equalTo(self.bottomV.mas_leading).offset(frame.size.width / 8);
-        make.size.mas_equalTo(CGSizeMake(30, 30));
-    }];
+    //fix.位置
+//    [self.seeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.centerY.equalTo(self.bottomV.mas_centerY);
+//        make.leading.equalTo(self.bottomV.mas_leading).offset(frame.size.width / 8);
+//        make.size.mas_equalTo(CGSizeMake(30, 30));
+//    }];
     
     // seeLabel
     self.seeLab = ({
@@ -257,10 +267,11 @@
         lab;
     });
     [self.bottomV addSubview:self.seeLab];
-    [self.seeLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.equalTo(self.seeBtn.mas_trailing).offset(5);
-        make.centerY.equalTo(self.bottomV.mas_centerY);
-    }];
+    //fix.位置
+//    [self.seeLab mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.leading.equalTo(self.seeBtn.mas_trailing).offset(5);
+//        make.centerY.equalTo(self.bottomV.mas_centerY);
+//    }];
     
     // LikeBtn
     self.likeBtn = ({
@@ -271,12 +282,13 @@
         btn;
     });
     [self.bottomV addSubview:self.likeBtn];
-    [self.likeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.bottomV.mas_centerY);
-        make.centerX.equalTo(self.bottomV.mas_centerX);
-        make.size.mas_equalTo(CGSizeMake(25, 25));
-    }];
-    
+    //fix.位置
+//    [self.likeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.centerY.equalTo(self.bottomV.mas_centerY);
+//        make.centerX.equalTo(self.bottomV.mas_centerX);
+//        make.size.mas_equalTo(CGSizeMake(25, 25));
+//    }];
+//    
     // likelab
     self.likeLab = ({
         UILabel *lab = [[UILabel alloc] init];
@@ -289,10 +301,11 @@
         lab;
     });
     [self.bottomV addSubview:self.likeLab];
-    [self.likeLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.equalTo(self.likeBtn.mas_trailing).offset(5);
-        make.centerY.equalTo(self.bottomV.mas_centerY);
-    }];
+    //fix.位置
+//    [self.likeLab mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.leading.equalTo(self.likeBtn.mas_trailing).offset(5);
+//        make.centerY.equalTo(self.bottomV.mas_centerY);
+//    }];
     
     // shareBtn 
     self.shareBtn = ({
@@ -302,12 +315,12 @@
         btn;
     });
     [self.bottomV addSubview:self.shareBtn];
-    [self.shareBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.bottomV.mas_centerY);
-        make.trailing.equalTo(self.bottomV.mas_trailing).offset(- frame.size.width / 8);
-        make.size.mas_equalTo(CGSizeMake(30, 30));
-    }];
-    
+    //fix.位置
+//    [self.shareBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.centerY.equalTo(self.bottomV.mas_centerY);
+//        make.trailing.equalTo(self.bottomV.mas_trailing).offset(- frame.size.width / 8);
+//        make.size.mas_equalTo(CGSizeMake(30, 30));
+//    }];
     
     self.videoShadowV = ({
         UIView *view = [[UIView alloc] init];
@@ -316,12 +329,13 @@
         view;
     });
     [self.imageV addSubview:self.videoShadowV];
-    [self.videoShadowV mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.equalTo(self.imageV.mas_leading);
-        make.trailing.equalTo(self.imageV.mas_trailing);
-        make.top.equalTo(self.imageV.mas_top);
-        make.bottom.equalTo(self.imageV.mas_bottom);
-    }];
+    //fix.位置
+//    [self.videoShadowV mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.leading.equalTo(self.imageV.mas_leading);
+//        make.trailing.equalTo(self.imageV.mas_trailing);
+//        make.top.equalTo(self.imageV.mas_top);
+//        make.bottom.equalTo(self.imageV.mas_bottom);
+//    }];
     
     // PlayBtn
     self.playBtn = ({
@@ -336,72 +350,73 @@
         btn;
     });
     [self.videoShadowV addSubview:self.playBtn];
-    [self.playBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.imageV.mas_centerX);
-        make.centerY.equalTo(self.imageV.mas_centerY).offset(25);
-    }];
+    //fix.位置
+//    [self.playBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.centerX.equalTo(self.imageV.mas_centerX);
+//        make.centerY.equalTo(self.imageV.mas_centerY).offset(25);
+//    }];
     
 }
 
-- (void)initWithSchool:(School *)school
-                 title:(NSString *)title
-                 image:(NSString *)image
-                    Id:(NSInteger)id
-              seeCount:(NSInteger)seeCount
-             likeCount:(NSInteger)likeCount
-                  type:(NSString *)type
-               msgType:(NSString *)msgType {
-            
-    self.school = school;
-    self.id = id;
-    self.image = image;
-    self.seeCount = seeCount;
-    self.likeCount = likeCount;
-    self.type = type;
-    self.msgType = msgType;
-    self.title = title;
-                   
-    BOOL flag = [[NSUserDefaults standardUserDefaults] boolForKey:[NSString stringWithFormat:@"%@_%ld",self.msgType, (long)id]];
-    if (flag) {
-        self.likeBtn.selected = YES;
-        self.likeLab.text = [NSString stringWithFormat:@"%ld", (long)self.likeCount + 1];
-    } else {
-        self.likeBtn.selected = NO;
-        self.likeLab.text = [NSString stringWithFormat:@"%ld",(long)self.likeCount];
-    }
-                   
-    self.seeLab.text = [NSString stringWithFormat:@"%ld",(long)self.seeCount];
-                   
-    [self.imageV sd_setImageWithURL:[NSURL URLWithString:self.image]
-                   placeholderImage:nil
-                            options:SDWebImageProgressiveDownload | SDWebImageRetryFailed];
-                   
-
-
-                   
-    [self.avatarV sd_setImageWithURL:[NSURL URLWithString:self.school.avatar]
-                   placeholderImage:nil
-                            options:SDWebImageProgressiveDownload | SDWebImageRetryFailed];
-                   
-    if(nil == self.school) {
-        self.topV.hidden = YES;
-    } else {
-//        self.nameLab.text = self.title;
-        if (self.school) {
-            self.nameLab.text = [UIDevice formatSchoolNameOnCurrentLanguageWithShool:self.school];
-        }
-        else
-        {
-            self.nameLab.text = self.title;
-        }
-        self.topV.hidden = NO;
-    }
-                   
-    if([self.type isEqualToString:kDataTypePhoto]) {
-       self.videoShadowV.hidden = YES;
-    } else {
-       self.videoShadowV.hidden = NO;
-    }
-}
+//- (void)initWithSchool:(School *)school
+//                 title:(NSString *)title
+//                 image:(NSString *)image
+//                    Id:(NSInteger)id
+//              seeCount:(NSInteger)seeCount
+//             likeCount:(NSInteger)likeCount
+//                  type:(NSString *)type
+//               msgType:(NSString *)msgType {
+//            
+//    self.school = school;
+//    self.id = id;
+//    self.image = image;
+//    self.seeCount = seeCount;
+//    self.likeCount = likeCount;
+//    self.type = type;
+//    self.msgType = msgType;
+//    self.title = title;
+//                   
+//    BOOL flag = [[NSUserDefaults standardUserDefaults] boolForKey:[NSString stringWithFormat:@"%@_%ld",self.msgType, (long)id]];
+//    if (flag) {
+//        self.likeBtn.selected = YES;
+//        self.likeLab.text = [NSString stringWithFormat:@"%ld", (long)self.likeCount + 1];
+//    } else {
+//        self.likeBtn.selected = NO;
+//        self.likeLab.text = [NSString stringWithFormat:@"%ld",(long)self.likeCount];
+//    }
+//                   
+//    self.seeLab.text = [NSString stringWithFormat:@"%ld",(long)self.seeCount];
+//                   
+//    [self.imageV sd_setImageWithURL:[NSURL URLWithString:self.image]
+//                   placeholderImage:nil
+//                            options:SDWebImageProgressiveDownload | SDWebImageRetryFailed];
+//                   
+//
+//
+//                   
+//    [self.avatarV sd_setImageWithURL:[NSURL URLWithString:self.school.avatar]
+//                   placeholderImage:nil
+//                            options:SDWebImageProgressiveDownload | SDWebImageRetryFailed];
+//                   
+//    if(nil == self.school) {
+//        self.topV.hidden = YES;
+//    } else {
+////        self.nameLab.text = self.title;
+//        if (self.school) {
+//            self.nameLab.text = [UIDevice formatSchoolNameOnCurrentLanguageWithShool:self.school];
+//        }
+//        else
+//        {
+//            self.nameLab.text = self.title;
+//        }
+//        self.topV.hidden = NO;
+//    }
+//                   
+//    if([self.type isEqualToString:kDataTypePhoto]) {
+//       self.videoShadowV.hidden = YES;
+//    } else {
+//       self.videoShadowV.hidden = NO;
+//    }
+//}
 
 @end
