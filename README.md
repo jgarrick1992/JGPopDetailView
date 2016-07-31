@@ -5,7 +5,7 @@ JGPopDetailView
 ![License](https://img.shields.io/cocoapods/l/TWPhotoPicker.svg)
 ![Platform](https://img.shields.io/cocoapods/p/TWPhotoPicker.svg)
 
-JGPopDetailView is 
+`JGPopDetailView` is 
 
 ## Screenshots
 ![popping](https://dl.dropboxusercontent.com/u/19150300/Github/Popping/popping.gif)
