@@ -1,6 +1,7 @@
 
 JGPopDetailView
 ====================
+![JGPopDetailView](https://github.com/jgarrick1992/JGPopDetailView/blob/master/JGPopDetailView/JGPopDetailView/Res/JGPopDetailView.jpg)
 [![Build Status](https://travis-ci.org/jgarrick1992/JGPopDetailView.svg?branch=master)](https://travis-ci.org/jgarrick1992/JGPopDetailView)
 ![License](https://img.shields.io/cocoapods/l/TWPhotoPicker.svg)
 ![Platform](https://img.shields.io/cocoapods/p/TWPhotoPicker.svg)
