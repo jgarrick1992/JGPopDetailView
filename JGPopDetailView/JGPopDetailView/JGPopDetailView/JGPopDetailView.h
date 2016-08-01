@@ -3,7 +3,7 @@
 //  veritas
 //
 //  Created by Ji Fu on 16/6/6.
-//  Copyright © 2016年 iHugo. All rights reserved.
+//  Copyright © 2016 Ji Fu. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -21,7 +21,14 @@
 @property (assign, nonatomic) NSString         *msgType;
 @property (strong, nonatomic) NSString         *title;
 
-@property (strong, nonatomic) UIViewController *vc;
+
+// *********************************************************************************************************************
+#pragma mark - OVER
+
+// 提示框是否现在屏幕中心
+@property (assign, nonatomic) BOOL inCenter;                    // defualt = YES
+// 提示卡片背景色
+@property (assign, nonatomic) UIColor *cardBackground;          // defualt = 0x36bcc7
 
 @property (copy, nonatomic) void (^onRelresh)();
 @property (copy, nonatomic) void (^onPhotoTapped)();

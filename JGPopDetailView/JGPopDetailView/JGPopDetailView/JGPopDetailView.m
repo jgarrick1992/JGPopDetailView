@@ -3,29 +3,24 @@
 //  veritas
 //
 //  Created by Ji Fu on 16/6/6.
-//  Copyright © 2016年 iHugo. All rights reserved.
+//  Copyright © 2016 Ji Fu. All rights reserved.
 //
 
 #import "JGPopDetailView.h"
+#import "MacroUtility.h"
 
-
-#define kScreenWidth [UIScreen mainScreen].bounds.size.width
-#define kScreenHeight [UIScreen mainScreen].bounds.size.height
-#define kStatusBarHeight 20
-#define kNavigationBarHeight 50
-#define kTabBarHeight 48
 
 @interface JGPopDetailView ()
-
 // *********************************************************************************************************************
 #pragma mark - Property
+
 // 背景透明视图
 @property (strong, nonatomic) UIView *blurBackgroundV;
 
 // 主显示视图
-@property (strong, nonatomic) UIView *alertV;
+@property (strong, nonatomic) UIView *alertCardV;
 
-// 中央提示区图片视图
+// 提示卡片图片视图
 @property (strong, nonatomic) UIImageView *centerImageV;
 
 // 播放按钮
@@ -72,7 +67,8 @@
 #pragma mark - Init Mehtod
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)]) {
-        [self setupUI:frame];
+        [self setupUI:frame];       // 初始化视图
+        [self setupDefault];        // 设置默认参数
     }
     return self;
 }
@@ -100,41 +96,41 @@
 
 - (void)onLikeBtnTapped:(id)sender {
     
-    if (self.likeBtn.selected) {
-        self.likeBtn.selected = NO;
-        self.likeLab.text = [NSString stringWithFormat:@"%lld", [self.likeLab.text longLongValue] - 1];
-    } else {
-        self.likeBtn.selected = YES;
-        self.likeLab.text = [NSString stringWithFormat:@"%lld", [self.likeLab.text longLongValue] + 1];
-    }
-    
-    [[NSUserDefaults standardUserDefaults] setBool:self.likeBtn.selected
-                                            forKey:[NSString stringWithFormat:@"%@_%ld",self.msgType,(long)self.id]];
+//    if (self.likeBtn.selected) {
+//        self.likeBtn.selected = NO;
+//        self.likeLab.text = [NSString stringWithFormat:@"%lld", [self.likeLab.text longLongValue] - 1];
+//    } else {
+//        self.likeBtn.selected = YES;
+//        self.likeLab.text = [NSString stringWithFormat:@"%lld", [self.likeLab.text longLongValue] + 1];
+//    }
+//    
+//    [[NSUserDefaults standardUserDefaults] setBool:self.likeBtn.selected
+//                                            forKey:[NSString stringWithFormat:@"%@_%ld",self.msgType,(long)self.id]];
 }
 
 - (void)onPhotoViewTapped:(id)sender {
-    [self onBackTapped:nil];
-    if (self.onPhotoTapped) {
-        self.onPhotoTapped();
-    }
+//    [self onBackTapped:nil];
+//    if (self.onPhotoTapped) {
+//        self.onPhotoTapped();
+//    }
 }
 
 - (void)onVideoViewTapped:(id)sender {
-    [self onBackTapped:nil];
-    if (self.onVideoTapped) {
-        self.onVideoTapped();
-    }
+//    [self onBackTapped:nil];
+//    if (self.onVideoTapped) {
+//        self.onVideoTapped();
+//    }
 }
 
 // *********************************************************************************************************************
 #pragma mark - Private
 - (void)setupUI:(CGRect)frame {
     
-    // blurBackgroundView
+    // blurBackgroundV
     self.blurBackgroundV = ({
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
         view.backgroundColor = [UIColor blackColor];
-        view.alpha = 0.65;
+        view.alpha = 0.75;
         view.userInteractionEnabled = YES;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
         [tap addTarget:self action:@selector(onBackTapped:)];
@@ -143,92 +139,56 @@
     });
     [self addSubview:self.blurBackgroundV];
     
-    // alertView
-    self.alertV = ({
+    // alertCardV
+    self.alertCardV = ({
         UIView *view = [[UIView alloc] initWithFrame:frame];
         view.layer.cornerRadius = 10;
         view.clipsToBounds = YES;
         view.backgroundColor = [UIColor whiteColor];
         view;
     });
-    [self addSubview:self.alertV];
-    // fix.位置
-//    [self.alertV mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.centerX.equalTo(self.mas_centerX);
-//        make.centerY.equalTo(self.mas_centerY);
-//        make.size.mas_equalTo(CGSizeMake(frame.size.width, frame.size.height));
-//    }];
+    [self addSubview:self.alertCardV];
+
     
-    
-    // bottomBannerView
+    // bottomBannerV
     self.bottomBannerV = ({
-        UIView *view = [[UIView alloc] init];
-        //fix.
-//        view.backgroundColor = [UIColor colorWithHex:0xeeeeee];
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, frame.size.height - 50, frame.size.width, 50)];
+        view.backgroundColor = [self colorWithHex:0xeeeeee alpha:1.0];
         view;
     });
-    [self.alertV addSubview:self.bottomBannerV];
-    // fix.位置
-//    [self.bottomBannerV mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.bottom.equalTo(self.alertV.mas_bottom);
-//        make.width.equalTo(self.alertV.mas_width);
-//        make.leading.equalTo(self.alertV.mas_leading);
-//        make.height.mas_equalTo(50);
-//    }];
+    [self.alertCardV addSubview:self.bottomBannerV];
     
-    // ImageView
-    self.imageV = ({
-        UIImageView *imageV = [[UIImageView alloc] init];
+    // centerImageV
+    self.centerImageV = ({
+        UIImageView *imageV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 50, frame.size.width, frame.size.height - 100)];
+        imageV.image = [UIImage imageNamed:@"autumn.jpg"];
         imageV.contentMode = UIViewContentModeScaleAspectFill;
         imageV.clipsToBounds = YES;
-        imageV.image = [UIImage  imageNamed:@"slash_bg_blur"];
         imageV.userInteractionEnabled = YES;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
         [tap addTarget:self action:@selector(onPhotoViewTapped:)];
         [imageV addGestureRecognizer:tap];
         imageV;
     });
-    [self.alertV addSubview:self.imageV];
-    // fix.位置
-//    [self.imageV mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(self.alertV.mas_top);
-//        make.leading.equalTo(self.alertV.mas_leading);
-//        make.width.equalTo(self.alertV.mas_width);
-//        make.bottom.equalTo(self.bottomBannerV.mas_top);
-//    }];
+    [self.alertCardV addSubview:self.centerImageV];
     
-    // topBannerView
+    // topBannerV
     self.topBannerV = ({
-        UIView *view = [[UIView alloc] init];
-        //fix.
-//        view.backgroundColor = [UIColor colorWithHex:kThemeColor];
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 50)];
         view;
     });
-    [self.alertV addSubview:self.topBannerV];
-    //fix.位置
-//    [self.topBannerV mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(self.alertV.mas_top);
-//        make.width.equalTo(self.alertV.mas_width);
-//        make.leading.equalTo(self.alertV.mas_leading);
-//        make.height.mas_equalTo(50);
-//    }];
+    [self.alertCardV addSubview:self.topBannerV];
 
-    // AvatarView
+    // avatarV
     self.avatarV = ({
-        UIImageView *imageV = [[UIImageView alloc] init];
-        imageV.image = [UIImage imageNamed:@"slash_bg_blur"];
-        imageV.layer.cornerRadius = 20;
+        UIImageView *imageV = [[UIImageView alloc] initWithFrame:CGRectMake(5, 5, 40, 40)];
+        imageV.image = [UIImage imageNamed:@"autumn.jpg"];
         imageV.contentMode = UIViewContentModeScaleAspectFill;
         imageV.clipsToBounds = YES;
+        imageV.layer.cornerRadius = 20;
         imageV;
     });
     [self.topBannerV addSubview:self.avatarV];
-    //fix.位置
-//    [self.avatarV mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.centerY.equalTo(self.topBannerV.mas_centerY);
-//        make.leading.equalTo(self.topBannerV.mas_leading).offset(5);
-//        make.size.mas_equalTo(CGSizeMake(40, 40));
-//    }];
     
     // followBtn
     self.followBtn = ({
@@ -252,6 +212,7 @@
 //        make.size.mas_equalTo(CGSizeMake(80, 30));
 //    }];
     
+   /*
     // nameLabel
     self.nameLab = ({
         UILabel *lab = [[UILabel alloc] init];
@@ -382,7 +343,7 @@
 //        make.centerX.equalTo(self.imageV.mas_centerX);
 //        make.centerY.equalTo(self.imageV.mas_centerY).offset(25);
 //    }];
-    
+   */
 }
 
 //- (void)initWithSchool:(School *)school
@@ -445,5 +406,40 @@
 //       self.videoShadowV.hidden = NO;
 //    }
 //}
+
+- (void)setupDefault {
+    
+    // 默认显示在屏幕中心
+    [self setInCenter:YES];
+    
+    // 默认提示卡片背景色 kThemeColor
+    [self setCardBackground:[self colorWithHex:kThemeColor alpha:1.0]];
+    
+}
+
+// *********************************************************************************************************************
+#pragma mark - Extend Method
+- (UIColor*)colorWithHex:(NSInteger)hexValue alpha:(CGFloat)alphaValue {
+    return [UIColor colorWithRed:((float)((hexValue & 0xFF0000) >> 16))/255.0
+                           green:((float)((hexValue & 0xFF00) >> 8))/255.0
+                            blue:((float)(hexValue & 0xFF))/255.0 alpha:alphaValue];
+}
+
+// *********************************************************************************************************************
+#pragma mark - Geters/Setters
+- (void)setInCenter:(BOOL)inCenter {
+    _inCenter = inCenter;
+    
+    if (_inCenter) {
+        self.alertCardV.center = self.center;
+    } else {
+        self.alertCardV.frame = self.frame;
+    }
+}
+
+- (void)setCardBackground:(UIColor *)cardBackground {
+    _cardBackground = cardBackground;
+    self.alertCardV.backgroundColor = _cardBackground;
+}
 
 @end
