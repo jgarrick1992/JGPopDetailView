@@ -6,7 +6,7 @@
 `JGPopDetailView` is 
 
 ## Screenshots
-![popping](https://dl.dropboxusercontent.com/u/19150300/Github/Popping/popping.gif)
+![JGPopDetailVIew](https://github.com/jgarrick1992/JGPopDetailView/blob/master/JGPopDetailView/JGPopDetailView/Res/JGPopDetailView.gif)
 
 
 ## Installation
