@@ -33,6 +33,8 @@ JGPopDetailView *popView = [[JGPopDetailView alloc] init];
 ## Requirements
 
 - iOS 6.0+ 
+
+
 ## Suggestions?
 If you have any suggestions, let me know! If you find any bugs, please open a new issue.
 
