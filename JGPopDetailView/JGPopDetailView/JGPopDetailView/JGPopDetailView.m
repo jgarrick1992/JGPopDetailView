@@ -77,49 +77,39 @@
 #pragma mark - Actions
 - (void)onBackTapped:(id)sender {
     [self removeFromSuperview];
-    if (self.onRelresh) {
-        self.onRelresh();
-    }
 }
 
-- (void)onFollowBtnTapped:(id)sender {
-    // fix.
+- (void)onFollowTappedBlock:(id)sender {
+    self.onFollowTappedBlock ? self.onFollowTappedBlock() : nil;
+}
+
+- (void)onPhotoTappedBlock:(id)sender {
+    //fix back
+    self.onPhotoTappedBlock ? self.onPhotoTappedBlock() : nil;
+}
+
+- (void)onVideoTappedBlock:(id)sender {
+    //fix back
+    self.onVideoTappedBlock ? self.onVideoTappedBlock() : nil;
 }
 
 - (void)onShareBtnTapped:(id)sender {
-    // fix.
+    self.onShareTappedBlock ? self.onShareTappedBlock() : nil;
 }
 
 - (void)onSeeBtnTapped:(id)sender {
-   // fix.
+    self.onVideoTappedBlock ? self.onViewTappedBlock() : nil;
 }
 
 - (void)onLikeBtnTapped:(id)sender {
     
-//    if (self.likeBtn.selected) {
-//        self.likeBtn.selected = NO;
-//        self.likeLab.text = [NSString stringWithFormat:@"%lld", [self.likeLab.text longLongValue] - 1];
-//    } else {
-//        self.likeBtn.selected = YES;
-//        self.likeLab.text = [NSString stringWithFormat:@"%lld", [self.likeLab.text longLongValue] + 1];
-//    }
-//    
-//    [[NSUserDefaults standardUserDefaults] setBool:self.likeBtn.selected
-//                                            forKey:[NSString stringWithFormat:@"%@_%ld",self.msgType,(long)self.id]];
-}
-
-- (void)onPhotoViewTapped:(id)sender {
-//    [self onBackTapped:nil];
-//    if (self.onPhotoTapped) {
-//        self.onPhotoTapped();
-//    }
-}
-
-- (void)onVideoViewTapped:(id)sender {
-//    [self onBackTapped:nil];
-//    if (self.onVideoTapped) {
-//        self.onVideoTapped();
-//    }
+    if (self.likeCountBtn.selected) {
+        self.likeCountBtn.selected = NO;
+        self.likeCountLab.text = [NSString stringWithFormat:@"%lld", [self.likeCountLab.text longLongValue] - 1];
+    } else {
+        self.likeCountBtn.selected = YES;
+        self.likeCountLab.text = [NSString stringWithFormat:@"%lld", [self.likeCountLab.text longLongValue] + 1];
+    }
 }
 
 // *********************************************************************************************************************
@@ -149,7 +139,6 @@
     });
     [self addSubview:self.alertCardV];
 
-    
     // bottomBannerV
     self.bottomBannerV = ({
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, frame.size.height - 50, frame.size.width, 50)];
@@ -166,7 +155,7 @@
         imageV.clipsToBounds = YES;
         imageV.userInteractionEnabled = YES;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
-        [tap addTarget:self action:@selector(onPhotoViewTapped:)];
+        [tap addTarget:self action:@selector(onPhotoTappedBlock:)];
         [imageV addGestureRecognizer:tap];
         imageV;
     });
@@ -193,29 +182,23 @@
     // followBtn
     self.followBtn = ({
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        btn.frame = CGRectMake(frame.size.width - 80 - 10, 10, 80, 30);
         btn.layer.cornerRadius = 3;
-        [btn setTitle:NSLocalizedString(@"follow", nil) forState:UIControlStateNormal];
-//        [btn setTitleColor:[UIColor colorWithHex:kThemeColor] forState:UIControlStateNormal];
+        [btn setTitle:@"关注" forState:UIControlStateNormal];
+        [btn setTitleColor:[self colorWithHex:kThemeColor alpha:1.0] forState:UIControlStateNormal];
         [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 30, 0, 0)];
         [btn setBackgroundColor:[UIColor whiteColor]];
-        [btn addTarget:self action:@selector(onFollowBtnTapped:) forControlEvents:UIControlEventTouchUpInside];
+        [btn addTarget:self action:@selector(onVideoTappedBlock:) forControlEvents:UIControlEventTouchUpInside];
         UIImageView *imageV = [[UIImageView alloc] initWithFrame:CGRectMake(3, 3, 24, 24)];
-        imageV.image = [UIImage imageNamed:@"follow_alert"];
+        imageV.image = [UIImage imageNamed:@"follow_alert.png"];
         [btn addSubview:imageV];
         btn;
     });
     [self.topBannerV addSubview:self.followBtn];
-    //fix.位置
-//    [self.followBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.centerY.equalTo(self.topBannerV.mas_centerY);
-//        make.trailing.equalTo(self.topBannerV.mas_trailing).offset(-10);
-//        make.size.mas_equalTo(CGSizeMake(80, 30));
-//    }];
     
-   /*
-    // nameLabel
-    self.nameLab = ({
-        UILabel *lab = [[UILabel alloc] init];
+    // titleLab
+    self.titleLab = ({
+        UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(55, 15, frame.size.width - 140, 20)];
         lab.textColor = [UIColor whiteColor];
         lab.font = [UIFont systemFontOfSize:15];
         lab.numberOfLines = 0;
@@ -223,63 +206,41 @@
         lab.lineBreakMode = NSLineBreakByTruncatingTail;
         lab;
     });
-    [self.topBannerV addSubview:self.nameLab];
-    //fix.位置
-//    [self.nameLab mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(self.avatarV.mas_top);
-//        make.centerY.equalTo(self.avatarV.mas_centerY);
-//        make.leading.equalTo(self.avatarV.mas_trailing).offset(5);
-//        make.trailing.equalTo(self.followBtn.mas_leading).offset(-10);
-//    }];
-//    
-    // seeBtn
-    self.seeBtn = ({
+    [self.topBannerV addSubview:self.titleLab];
+    
+    // viewCountBtn
+    self.viewCountBtn = ({
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [btn setImage:[UIImage imageNamed:@"see"] forState:UIControlStateNormal];
+        btn.frame = CGRectMake(frame.size.width / 8, 12, 30, 30);
+        [btn setImage:[UIImage imageNamed:@"viewCountBtn"] forState:UIControlStateNormal];
         [btn addTarget:self action:@selector(onSeeBtnTapped:) forControlEvents:UIControlEventTouchUpInside];
         btn;
     });
-    [self.bottomBannerV addSubview:self.seeBtn];
-    //fix.位置
-//    [self.seeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.centerY.equalTo(self.bottomBannerV.mas_centerY);
-//        make.leading.equalTo(self.bottomBannerV.mas_leading).offset(frame.size.width / 8);
-//        make.size.mas_equalTo(CGSizeMake(30, 30));
-//    }];
+    [self.bottomBannerV addSubview:self.viewCountBtn];
     
-    // seeLabel
-    self.seeLab = ({
-        UILabel *lab = [[UILabel alloc] init];
+    // viewCountLab
+    self.viewCountLab = ({
+        UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(frame.size.width / 8 + 35, 15, 60, 20)];
         lab.text = @"563";
         lab.textColor = [UIColor lightGrayColor];
         lab;
     });
-    [self.bottomBannerV addSubview:self.seeLab];
-    //fix.位置
-//    [self.seeLab mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.leading.equalTo(self.seeBtn.mas_trailing).offset(5);
-//        make.centerY.equalTo(self.bottomBannerV.mas_centerY);
-//    }];
+    [self.bottomBannerV addSubview:self.viewCountLab];
     
-    // LikeBtn
-    self.likeBtn = ({
+    // likeCountBtn
+    self.likeCountBtn = ({
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [btn setImage:[UIImage imageNamed:@"like"] forState:UIControlStateNormal];
-        [btn setImage:[UIImage imageNamed:@"liked"] forState:UIControlStateSelected];
+        btn.frame = CGRectMake(frame.size.width / 2 - 15, 12, 30, 30);
+        [btn setImage:[UIImage imageNamed:@"likeBtn.png"] forState:UIControlStateNormal];
+        [btn setImage:[UIImage imageNamed:@"likedBtn.png"] forState:UIControlStateSelected];
         [btn addTarget:self action:@selector(onLikeBtnTapped:) forControlEvents:UIControlEventTouchUpInside];
         btn;
     });
-    [self.bottomBannerV addSubview:self.likeBtn];
-    //fix.位置
-//    [self.likeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.centerY.equalTo(self.bottomBannerV.mas_centerY);
-//        make.centerX.equalTo(self.bottomBannerV.mas_centerX);
-//        make.size.mas_equalTo(CGSizeMake(25, 25));
-//    }];
-//    
-    // likelab
-    self.likeLab = ({
-        UILabel *lab = [[UILabel alloc] init];
+    [self.bottomBannerV addSubview:self.likeCountBtn];
+    
+    // likeCountLab
+    self.likeCountLab = ({
+        UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(frame.size.width /2 + 15, 18, 60, 20)];
         lab.text = @"325";
         lab.textColor = [UIColor lightGrayColor];
         lab.userInteractionEnabled = YES;
@@ -288,27 +249,18 @@
         [lab addGestureRecognizer:tap];
         lab;
     });
-    [self.bottomBannerV addSubview:self.likeLab];
-    //fix.位置
-//    [self.likeLab mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.leading.equalTo(self.likeBtn.mas_trailing).offset(5);
-//        make.centerY.equalTo(self.bottomBannerV.mas_centerY);
-//    }];
-    
-    // shareBtn 
+    [self.bottomBannerV addSubview:self.likeCountLab];
+
+    // shareBtn
     self.shareBtn = ({
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [btn setImage:[UIImage imageNamed:@"share"] forState:UIControlStateNormal];
+        btn.frame = CGRectMake(frame.size.width / 1.3, 12, 30, 30);
+        [btn setImage:[UIImage imageNamed:@"shareBtn.png"] forState:UIControlStateNormal];
         [btn addTarget:self action:@selector(onShareBtnTapped:) forControlEvents:UIControlEventTouchUpInside];
         btn;
     });
     [self.bottomBannerV addSubview:self.shareBtn];
-    //fix.位置
-//    [self.shareBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.centerY.equalTo(self.bottomBannerV.mas_centerY);
-//        make.trailing.equalTo(self.bottomBannerV.mas_trailing).offset(- frame.size.width / 8);
-//        make.size.mas_equalTo(CGSizeMake(30, 30));
-//    }];
+    /*
     
     self.videoShadowV = ({
         UIView *view = [[UIView alloc] init];
