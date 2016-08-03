@@ -15,32 +15,31 @@
 
 With [CocoaPods](http://cocoapods.org/), add this line to your `Podfile`.
 ```
-pod 'PopMenu'
+pod 'JGPopDetailView'
 ```
 
 and run `pod install`, then you're all done!
 
 #### Manually
-1. Download and drop ```/PopMenu```folder in your project.  
+1. Download and drop ```/JGPopDetailView``` folder in your project.  
 2. Congratulations! 
 
 ## How to use it
-It’s very simple. Drag a UIProgressView into your Storyboard/nib and set its class to ASProgressPopUpView – that's it. The example below demonstrates how to customize the appearance.
+It’s very simple. 
 ```objc
-NSMutableArray *items = [[NSMutableArray alloc] initWithCapacity:3];
+JGPopDetailView *popView = [[JGPopDetailView alloc] init];
 ```
 
-## Requirements  (fix)
+## Requirements
 
-- iOS 7.0+ 
-- ARC​
+- iOS 6.0+ 
 ## Suggestions?
 If you have any suggestions, let me know! If you find any bugs, please open a new issue.
 
-## Author  (fix)
+## Author
 
-Ji Fu, [@_schneiderandre](http://twitter.com/_schneiderandre)
+Ji Fu, [@jifu.store](http://www.jifu.store)
 
 ## License
 
-JGPopDetailView is available under the MIT license, see the LICENSE file for more information. 
+`JGPopDetailView`  is available under the MIT license, see the LICENSE file for more information. 
