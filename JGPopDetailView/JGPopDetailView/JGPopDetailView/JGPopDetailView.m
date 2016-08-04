@@ -59,18 +59,62 @@
 // 点赞数量标签    ( bottomBannerV )
 @property (strong, nonatomic) UILabel *likeCountLab;
 
+@property (strong, nonatomic) UIView *superView;
+
 @end
 
 @implementation JGPopDetailView
 
 // *********************************************************************************************************************
 #pragma mark - Init Mehtod
-- (instancetype)initWithFrame:(CGRect)frame {
+- (id)initWithView:(UIView *)view
+                    andFrame:(CGRect)frame {
+    
     if (self = [super initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)]) {
-        [self setupUI:frame];       // 初始化视图
-        [self setupDefault];        // 设置默认参数
+        self.superView = view;
+        self.cardFrame = CGRectEqualToRect(frame, CGRectZero)  ? CGRectMake(0, 0, kScreenWidth - 50, kScreenWidth - 50) : frame;
+        
+        [self setupUI:self.cardFrame];          // 初始化视图
+        [self setupDefault];                    // 设置默认参数
     }
     return self;
+}
+
+- (id)initWithView:(UIView *)view {
+    return [self initWithView:view andFrame:CGRectZero];
+}
+
+- (id)initWithWindow:(UIWindow *)window {
+    return [self initWithView:window andFrame:CGRectZero];
+}
+
+- (id)initWithViewController:(UIViewController *)viewController {
+    return [self initWithView:viewController.view andFrame:CGRectZero];
+}
+
+
+// *********************************************************************************************************************
+#pragma mark - Public Method
+- (void)show:(BOOL)animated {
+//    UIImageView *captureImageView = [[UIImageView alloc] initWithImage:self];
+//    captureImageView.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.7];
+//    captureImageView.frame = CGRectOffset(target.view.bounds, 0, -target.view.bounds.size.height);
+//    captureImageView.alpha = 1.0;
+//    captureImageView.contentMode = UIViewContentModeScaleAspectFit;
+//    captureImageView.userInteractionEnabled = YES;
+//    [target.view addSubview:captureImageView];
+    
+//    [UIView animateWithDuration:0.7 delay:0.0 usingSpringWithDamping:0.8 initialSpringVelocity:0.7 options:UIViewAnimationOptionAllowUserInteraction animations:^{
+//        self.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight);
+//    } completion:nil];
+    [self.superView addSubview:self];
+}
+
+- (void)dismiss:(BOOL)animated {
+    [UIView animateWithDuration:0.7 delay:0.0 usingSpringWithDamping:0.8 initialSpringVelocity:1.0 options:UIViewAnimationOptionAllowUserInteraction animations:^ {
+    }completion:^(BOOL finished){
+        [self removeFromSuperview];
+    }];
 }
 
 // *********************************************************************************************************************
@@ -298,67 +342,6 @@
    */
 }
 
-//- (void)initWithSchool:(School *)school
-//                 title:(NSString *)title
-//                 image:(NSString *)image
-//                    Id:(NSInteger)id
-//              seeCount:(NSInteger)seeCount
-//             likeCount:(NSInteger)likeCount
-//                  type:(NSString *)type
-//               msgType:(NSString *)msgType {
-//            
-//    self.school = school;
-//    self.id = id;
-//    self.image = image;
-//    self.seeCount = seeCount;
-//    self.likeCount = likeCount;
-//    self.type = type;
-//    self.msgType = msgType;
-//    self.title = title;
-//                   
-//    BOOL flag = [[NSUserDefaults standardUserDefaults] boolForKey:[NSString stringWithFormat:@"%@_%ld",self.msgType, (long)id]];
-//    if (flag) {
-//        self.likeBtn.selected = YES;
-//        self.likeLab.text = [NSString stringWithFormat:@"%ld", (long)self.likeCount + 1];
-//    } else {
-//        self.likeBtn.selected = NO;
-//        self.likeLab.text = [NSString stringWithFormat:@"%ld",(long)self.likeCount];
-//    }
-//                   
-//    self.seeLab.text = [NSString stringWithFormat:@"%ld",(long)self.seeCount];
-//                   
-//    [self.imageV sd_setImageWithURL:[NSURL URLWithString:self.image]
-//                   placeholderImage:nil
-//                            options:SDWebImageProgressiveDownload | SDWebImageRetryFailed];
-//                   
-//
-//
-//                   
-//    [self.avatarV sd_setImageWithURL:[NSURL URLWithString:self.school.avatar]
-//                   placeholderImage:nil
-//                            options:SDWebImageProgressiveDownload | SDWebImageRetryFailed];
-//                   
-//    if(nil == self.school) {
-//        self.topBannerV.hidden = YES;
-//    } else {
-////        self.nameLab.text = self.title;
-//        if (self.school) {
-//            self.nameLab.text = [UIDevice formatSchoolNameOnCurrentLanguageWithShool:self.school];
-//        }
-//        else
-//        {
-//            self.nameLab.text = self.title;
-//        }
-//        self.topBannerV.hidden = NO;
-//    }
-//                   
-//    if([self.type isEqualToString:kDataTypePhoto]) {
-//       self.videoShadowV.hidden = YES;
-//    } else {
-//       self.videoShadowV.hidden = NO;
-//    }
-//}
-
 - (void)setupDefault {
     
     // 默认显示在屏幕中心
@@ -366,6 +349,9 @@
     
     // 默认提示卡片背景色 kThemeColor
     [self setCardBackground:[self colorWithHex:kThemeColor alpha:1.0]];
+    
+    // 初始化时不显示
+//    [self setHidden:YES];
     
 }
 
@@ -392,6 +378,14 @@
 - (void)setCardBackground:(UIColor *)cardBackground {
     _cardBackground = cardBackground;
     self.alertCardV.backgroundColor = _cardBackground;
+}
+
+- (void)setAvatar:(NSString *)avatar {
+    
+}
+
+- (void)setThumbnailUrl:(NSString *)thumbnailUrl {
+    
 }
 
 @end

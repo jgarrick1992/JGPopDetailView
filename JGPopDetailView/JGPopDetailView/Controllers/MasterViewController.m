@@ -16,7 +16,7 @@
 // *********************************************************************************************************************
 #pragma mark - Property
 @property (strong, nonatomic) UIImageView *imageV;
-@property (strong, nonatomic) JGPopDetailView *popV;
+@property (strong, nonatomic) JGPopDetailView *popDetailView;
 
 @end
 
@@ -41,13 +41,13 @@
 // *********************************************************************************************************************
 #pragma mark - Action
 - (void)onImageTapped:(id)sender {
-    self.popV = [[JGPopDetailView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth - 50, kScreenWidth - 50)];
-    [self.view addSubview:self.popV];
+    [self.popDetailView show:YES];
 }
 
 // *********************************************************************************************************************
 #pragma mark - Private
 - (void)initUI {
+    
     self.imageV = ({
         UIImageView *imageV = [[UIImageView alloc] initWithFrame:CGRectMake(0, kScreenHeight / 6, kScreenWidth, kScreenHeight / 3)];
         imageV.image = [UIImage imageNamed:@"autumn.jpg"];
@@ -61,7 +61,15 @@
 }
 
 - (void)setupUI {
+    self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.imageV];
+}
+
+- (JGPopDetailView *)popDetailView {
+    if (nil == _popDetailView) {
+        _popDetailView = [[JGPopDetailView alloc] initWithView:self.view];
+    }
+    return _popDetailView;
 }
 
 @end

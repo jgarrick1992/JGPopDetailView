@@ -8,7 +8,20 @@
 
 #import <UIKit/UIKit.h>
 
+
 @interface JGPopDetailView : UIView
+
+// *********************************************************************************************************************
+#pragma mark - Init Mehtod
+- (id)initWithView:(UIView *)view andFrame:(CGRect)frame;
+- (id)initWithView:(UIView *)view;
+- (id)initWithWindow:(UIWindow *)window;
+- (id)initWithViewController:(UIViewController *)viewController;
+
+// *********************************************************************************************************************
+#pragma mark - Public
+- (void)show:(BOOL)animated;
+- (void)dismiss:(BOOL)animated;
 
 // *********************************************************************************************************************
 #pragma mark - Propery
@@ -17,6 +30,7 @@
 @property (strong, nonatomic) NSString *thumbnailUrl;           // 图片 or 视频 缩略图
 @property (assign, nonatomic) NSInteger viewCount;              // 观察次数
 @property (assign, nonatomic) NSInteger likeCount;              // 点赞次数
+@property (assign, nonatomic) CGRect cardFrame;                 // 卡片的显示大小
 
 // 提示框是否现在屏幕中心
 @property (assign, nonatomic) BOOL inCenter;                    // defualt = YES
@@ -38,15 +52,7 @@
 // 点击分享按钮的回调
 @property (copy, nonatomic) void (^onShareTappedBlock)();
 
-// *********************************************************************************************************************
-#pragma mark - Public
-//- (void)initWithSchool:(School *)school
-//                 title:(NSString *)title
-//                 image:(NSString *)image
-//                    Id:(NSInteger)id
-//              seeCount:(NSInteger)seeCount
-//             likeCount:(NSInteger)likeCount
-//                  type:(NSString *)type
-//               msgType:(NSString *)msgType;
+
+
 
 @end
