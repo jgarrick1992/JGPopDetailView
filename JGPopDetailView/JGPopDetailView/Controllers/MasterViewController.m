@@ -16,6 +16,7 @@
 // *********************************************************************************************************************
 #pragma mark - Property
 @property (strong, nonatomic) UIImageView *imageV;
+@property (strong, nonatomic) UIImageView *videoV;
 @property (strong, nonatomic) JGPopDetailView *popDetailView;
 
 @end
@@ -41,7 +42,13 @@
 // *********************************************************************************************************************
 #pragma mark - Action
 - (void)onImageTapped:(id)sender {
-    self.popDetailView.url = @"http://ac-m6wnoxmv.clouddn.com/HeS7xqC7217PNLjNYj0cDCE.m4a";
+    UITapGestureRecognizer *tap = (UITapGestureRecognizer *)sender;
+    if (tap.view.tag == 1001) {
+        self.popDetailView.type = kJGPopDetailViewTypePhoto;
+    } else {
+        self.popDetailView.type = kJGPopDetailViewTypeVideo;
+        self.popDetailView.url = @"http://ac-m6wnoxmv.clouddn.com/HeS7xqC7217PNLjNYj0cDCE.m4a";
+    }
     [self.popDetailView show:YES];
 }
 
@@ -50,20 +57,34 @@
 - (void)initUI {
     
     self.imageV = ({
-        UIImageView *imageV = [[UIImageView alloc] initWithFrame:CGRectMake(0, kScreenHeight / 6, kScreenWidth, kScreenHeight / 3)];
+        UIImageView *imageV = [[UIImageView alloc] initWithFrame:CGRectMake(0, kScreenHeight / 8, kScreenWidth, kScreenHeight / 3)];
         imageV.image = [UIImage imageNamed:@"autumn.jpg"];
         imageV.userInteractionEnabled =YES;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
         [tap addTarget:self action:@selector(onImageTapped:)];
+        imageV.tag = 1001;
         tap.numberOfTapsRequired = 1;
         [imageV addGestureRecognizer:tap];
         imageV;
+    });
+    
+    self.videoV = ({
+        UIImageView *videoV = [[UIImageView alloc] initWithFrame:CGRectMake(0, kScreenHeight / 2, kScreenWidth, kScreenHeight / 3)];
+        videoV.image = [UIImage imageNamed:@"autumn.jpg"];
+        videoV.userInteractionEnabled =YES;
+        videoV.tag = 1002;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
+        [tap addTarget:self action:@selector(onImageTapped:)];
+        tap.numberOfTapsRequired = 1;
+        [videoV addGestureRecognizer:tap];
+        videoV;
     });
 }
 
 - (void)setupUI {
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.imageV];
+    [self.view addSubview:self.videoV];
 }
 
 // *********************************************************************************************************************
@@ -128,7 +149,7 @@
         };
         
         // 用户点击视频播放后回调
-        _popDetailView.onPhotoTappedBlock = ^(UIImage *image, NSString *url) {
+        _popDetailView.onVideoTappedBlock = ^(UIImage *image, NSString *url) {
             ScPlayVideoViewController *playVC = [[ScPlayVideoViewController alloc] init];
             playVC.urlStr = url;
             [wself presentViewController:playVC animated:YES completion:nil];

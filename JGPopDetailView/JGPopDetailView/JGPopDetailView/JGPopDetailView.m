@@ -13,7 +13,6 @@
 @interface JGPopDetailView ()
 // *********************************************************************************************************************
 #pragma mark - Property
-
 // 背景透明视图
 @property (strong, nonatomic) UIView *blurBackgroundV;
 
@@ -131,8 +130,9 @@
     self.onPhotoTappedBlock ? self.onPhotoTappedBlock(self.centerImageV.image, self.url) : nil;
 }
 
-- (void)onVideoTapped:(id)sender {
+- (void)onVideoPlayerTapped:(id)sender {
     self.onVideoTappedBlock ? self.onVideoTappedBlock(self.centerImageV.image, self.url) : nil;
+    [self onBackTapped:nil];
 }
 
 - (void)onShareBtnTapped:(id)sender {
@@ -297,42 +297,32 @@
         btn;
     });
     [self.bottomBannerV addSubview:self.shareBtn];
-    /*
     
-    self.videoShadowV = ({
-        UIView *view = [[UIView alloc] init];
+    // thumbnailBlurV
+    self.thumbnailBlurV = ({
+        UIView *view = [[UIView alloc] initWithFrame:self.centerImageV.frame];
         view.backgroundColor = [UIColor blackColor];
         view.alpha = 0.6;
         view;
     });
-    [self.imageV addSubview:self.videoShadowV];
-    //fix.位置
-//    [self.videoShadowV mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.leading.equalTo(self.imageV.mas_leading);
-//        make.trailing.equalTo(self.imageV.mas_trailing);
-//        make.top.equalTo(self.imageV.mas_top);
-//        make.bottom.equalTo(self.imageV.mas_bottom);
-//    }];
+    [self.alertCardV addSubview:self.thumbnailBlurV];
     
     // PlayBtn
     self.playBtn = ({
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         [btn setImage:[UIImage imageNamed:@"popular_play"] forState:UIControlStateNormal];
-        CGRect frame = self.imageV.frame;
+        CGRect frame = self.thumbnailBlurV.frame;
         [btn setFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
         self.playBtn = btn;
         [btn setContentMode:UIViewContentModeCenter];
-        btn.imageEdgeInsets = UIEdgeInsetsMake(50, 50, 50, 50);
-        [btn addTarget:self action:@selector(onVideoViewTapped:) forControlEvents:UIControlEventTouchUpInside];
+        CGFloat unitX = self.thumbnailBlurV.frame.size.width /2 - 200;
+        CGFloat unitY = self.thumbnailBlurV.frame.size.height /2 - 150;
+        
+        btn.imageEdgeInsets = UIEdgeInsetsMake(unitX, unitY, unitX, unitY);
+        [btn addTarget:self action:@selector(onVideoPlayerTapped:) forControlEvents:UIControlEventTouchUpInside];
         btn;
     });
-    [self.videoShadowV addSubview:self.playBtn];
-    //fix.位置
-//    [self.playBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.centerX.equalTo(self.imageV.mas_centerX);
-//        make.centerY.equalTo(self.imageV.mas_centerY).offset(25);
-//    }];
-   */
+    [self.thumbnailBlurV addSubview:self.playBtn];
 }
 
 - (void)setupDefault {
@@ -344,7 +334,6 @@
     [self setCardBackground:[self colorWithHex:kThemeColor alpha:1.0]];
     
     // 初始化时不显示
-//    [self setHidden:YES];
     self.likeCount = 0;
     self.viewCount = 0;
 }
@@ -368,6 +357,14 @@
     _viewCount = viewCount;
     self.viewCountLab.text = [NSString stringWithFormat:@"%ld", (long)_viewCount];
     self.onViewedBlock ? self.onViewedBlock(self.viewCount) : nil;
+}
+
+- (void)setType:(kJGPopDetailViewType)type {
+    _type = type;
+    
+    BOOL flag = (_type == kJGPopDetailViewTypePhoto) ? YES : NO;
+    self.playBtn.hidden = flag;
+    self.thumbnailBlurV.hidden = flag;
 }
 
 - (void)setInCenter:(BOOL)inCenter {

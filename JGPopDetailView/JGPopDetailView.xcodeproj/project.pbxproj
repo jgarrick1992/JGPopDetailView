@@ -16,6 +16,7 @@
 		902825381D4F976900B35438 /* autumn.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 902825371D4F976900B35438 /* autumn.jpg */; };
 		9028253F1D4F9B9600B35438 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9028253C1D4F9B9600B35438 /* Main.storyboard */; };
 		9079D4311D54D36D003EDA67 /* ScPlayVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9079D4301D54D36D003EDA67 /* ScPlayVideoViewController.m */; };
+		90D2FFF01D54D8AA00BAB209 /* popular_play.png in Resources */ = {isa = PBXBuildFile; fileRef = 90D2FFEF1D54D8AA00BAB209 /* popular_play.png */; };
 		90D888971D52357700F788FF /* follow_alert.png in Resources */ = {isa = PBXBuildFile; fileRef = 90D888961D52357700F788FF /* follow_alert.png */; };
 		90D888991D5236B900F788FF /* viewCountBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = 90D888981D5236B900F788FF /* viewCountBtn.png */; };
 		90D8889C1D52383D00F788FF /* likeBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = 90D8889A1D52383D00F788FF /* likeBtn.png */; };
@@ -52,6 +53,7 @@
 		9028253D1D4F9B9600B35438 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9079D42F1D54D36D003EDA67 /* ScPlayVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScPlayVideoViewController.h; sourceTree = "<group>"; };
 		9079D4301D54D36D003EDA67 /* ScPlayVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScPlayVideoViewController.m; sourceTree = "<group>"; };
+		90D2FFEF1D54D8AA00BAB209 /* popular_play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = popular_play.png; path = JGPopDetailView/Res/popular_play.png; sourceTree = "<group>"; };
 		90D888961D52357700F788FF /* follow_alert.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = follow_alert.png; path = JGPopDetailView/Res/follow_alert.png; sourceTree = "<group>"; };
 		90D888981D5236B900F788FF /* viewCountBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = viewCountBtn.png; path = JGPopDetailView/Res/viewCountBtn.png; sourceTree = "<group>"; };
 		90D8889A1D52383D00F788FF /* likeBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = likeBtn.png; path = JGPopDetailView/Res/likeBtn.png; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 		90D888951D52353600F788FF /* Res */ = {
 			isa = PBXGroup;
 			children = (
+				90D2FFEF1D54D8AA00BAB209 /* popular_play.png */,
 				90D8889E1D52393400F788FF /* shareBtn.png */,
 				90D8889A1D52383D00F788FF /* likeBtn.png */,
 				90D8889B1D52383D00F788FF /* likedBtn.png */,
@@ -282,6 +285,7 @@
 				902825381D4F976900B35438 /* autumn.jpg in Resources */,
 				90D8889C1D52383D00F788FF /* likeBtn.png in Resources */,
 				90D888991D5236B900F788FF /* viewCountBtn.png in Resources */,
+				90D2FFF01D54D8AA00BAB209 /* popular_play.png in Resources */,
 				90D8889F1D52393400F788FF /* shareBtn.png in Resources */,
 				9028253F1D4F9B9600B35438 /* Main.storyboard in Resources */,
 			);
