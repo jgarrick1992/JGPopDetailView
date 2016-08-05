@@ -15,6 +15,7 @@
 		901ECA771D4E42560099B425 /* JGPopDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 901ECA761D4E42560099B425 /* JGPopDetailView.m */; };
 		902825381D4F976900B35438 /* autumn.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 902825371D4F976900B35438 /* autumn.jpg */; };
 		9028253F1D4F9B9600B35438 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9028253C1D4F9B9600B35438 /* Main.storyboard */; };
+		9079D4311D54D36D003EDA67 /* ScPlayVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9079D4301D54D36D003EDA67 /* ScPlayVideoViewController.m */; };
 		90D888971D52357700F788FF /* follow_alert.png in Resources */ = {isa = PBXBuildFile; fileRef = 90D888961D52357700F788FF /* follow_alert.png */; };
 		90D888991D5236B900F788FF /* viewCountBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = 90D888981D5236B900F788FF /* viewCountBtn.png */; };
 		90D8889C1D52383D00F788FF /* likeBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = 90D8889A1D52383D00F788FF /* likeBtn.png */; };
@@ -49,6 +50,8 @@
 		902825371D4F976900B35438 /* autumn.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = autumn.jpg; sourceTree = "<group>"; };
 		902825391D4F97C400B35438 /* MacroUtility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MacroUtility.h; path = JGPopDetailView/MacroUtility.h; sourceTree = "<group>"; };
 		9028253D1D4F9B9600B35438 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		9079D42F1D54D36D003EDA67 /* ScPlayVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScPlayVideoViewController.h; sourceTree = "<group>"; };
+		9079D4301D54D36D003EDA67 /* ScPlayVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScPlayVideoViewController.m; sourceTree = "<group>"; };
 		90D888961D52357700F788FF /* follow_alert.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = follow_alert.png; path = JGPopDetailView/Res/follow_alert.png; sourceTree = "<group>"; };
 		90D888981D5236B900F788FF /* viewCountBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = viewCountBtn.png; path = JGPopDetailView/Res/viewCountBtn.png; sourceTree = "<group>"; };
 		90D8889A1D52383D00F788FF /* likeBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = likeBtn.png; path = JGPopDetailView/Res/likeBtn.png; sourceTree = "<group>"; };
@@ -96,6 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				901ECA6B1D4E41D90099B425 /* JGPopDetailView */,
+				9079D3501D54CE9E003EDA67 /* Vender */,
 				901ECA6A1D4E41C10099B425 /* Contorllers */,
 				901ECA681D4E41710099B425 /* App */,
 				901ECA691D4E41780099B425 /* Resource */,
@@ -160,6 +164,24 @@
 				901ECA761D4E42560099B425 /* JGPopDetailView.m */,
 			);
 			name = JGPopDetailView;
+			sourceTree = "<group>";
+		};
+		9079D3501D54CE9E003EDA67 /* Vender */ = {
+			isa = PBXGroup;
+			children = (
+				9079D42E1D54D36D003EDA67 /* ScPlayVideoViewController */,
+			);
+			name = Vender;
+			sourceTree = "<group>";
+		};
+		9079D42E1D54D36D003EDA67 /* ScPlayVideoViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9079D42F1D54D36D003EDA67 /* ScPlayVideoViewController.h */,
+				9079D4301D54D36D003EDA67 /* ScPlayVideoViewController.m */,
+			);
+			name = ScPlayVideoViewController;
+			path = Vender/ScPlayVideoViewController;
 			sourceTree = "<group>";
 		};
 		90D888951D52353600F788FF /* Res */ = {
@@ -280,6 +302,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				901ECA421D4E40D00099B425 /* main.m in Sources */,
+				9079D4311D54D36D003EDA67 /* ScPlayVideoViewController.m in Sources */,
 				901ECA6E1D4E42150099B425 /* AppDelegate.m in Sources */,
 				901ECA771D4E42560099B425 /* JGPopDetailView.m in Sources */,
 				901ECA741D4E421B0099B425 /* MasterViewController.m in Sources */,
@@ -403,6 +426,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = JGPopDetailView/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = jifu.store.JGPopDetailView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -414,6 +438,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = JGPopDetailView/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = jifu.store.JGPopDetailView;
 				PRODUCT_NAME = "$(TARGET_NAME)";

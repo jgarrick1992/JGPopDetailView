@@ -92,7 +92,6 @@
     return [self initWithView:viewController.view andFrame:CGRectZero];
 }
 
-
 // *********************************************************************************************************************
 #pragma mark - Public Method
 - (void)show:(BOOL)animated {
@@ -108,6 +107,7 @@
 //        self.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight);
 //    } completion:nil];
     [self.superView addSubview:self];
+    self.viewCount++;
 }
 
 - (void)dismiss:(BOOL)animated {
@@ -123,37 +123,33 @@
     [self removeFromSuperview];
 }
 
-- (void)onFollowTappedBlock:(id)sender {
+- (void)onFollowTapped:(id)sender {
     self.onFollowTappedBlock ? self.onFollowTappedBlock() : nil;
 }
 
-- (void)onPhotoTappedBlock:(id)sender {
-    //fix back
-    self.onPhotoTappedBlock ? self.onPhotoTappedBlock() : nil;
+- (void)onPhotoTapped:(id)sender {
+    self.onPhotoTappedBlock ? self.onPhotoTappedBlock(self.centerImageV.image, self.url) : nil;
 }
 
-- (void)onVideoTappedBlock:(id)sender {
-    //fix back
-    self.onVideoTappedBlock ? self.onVideoTappedBlock() : nil;
+- (void)onVideoTapped:(id)sender {
+    self.onVideoTappedBlock ? self.onVideoTappedBlock(self.centerImageV.image, self.url) : nil;
 }
 
 - (void)onShareBtnTapped:(id)sender {
     self.onShareTappedBlock ? self.onShareTappedBlock() : nil;
 }
 
-- (void)onSeeBtnTapped:(id)sender {
-    self.onVideoTappedBlock ? self.onViewTappedBlock() : nil;
-}
-
 - (void)onLikeBtnTapped:(id)sender {
     
     if (self.likeCountBtn.selected) {
         self.likeCountBtn.selected = NO;
-        self.likeCountLab.text = [NSString stringWithFormat:@"%lld", [self.likeCountLab.text longLongValue] - 1];
+        self.likeCount = self.likeCount - 1;
     } else {
         self.likeCountBtn.selected = YES;
-        self.likeCountLab.text = [NSString stringWithFormat:@"%lld", [self.likeCountLab.text longLongValue] + 1];
+        self.likeCount = self.likeCount + 1;
     }
+    
+    self.onLikeTappedBlock ? self.onLikeTappedBlock(self.likeCount, self.likeCountBtn.selected) : nil;
 }
 
 // *********************************************************************************************************************
@@ -199,7 +195,7 @@
         imageV.clipsToBounds = YES;
         imageV.userInteractionEnabled = YES;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
-        [tap addTarget:self action:@selector(onPhotoTappedBlock:)];
+        [tap addTarget:self action:@selector(onPhotoTapped:)];
         [imageV addGestureRecognizer:tap];
         imageV;
     });
@@ -232,7 +228,7 @@
         [btn setTitleColor:[self colorWithHex:kThemeColor alpha:1.0] forState:UIControlStateNormal];
         [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 30, 0, 0)];
         [btn setBackgroundColor:[UIColor whiteColor]];
-        [btn addTarget:self action:@selector(onVideoTappedBlock:) forControlEvents:UIControlEventTouchUpInside];
+        [btn addTarget:self action:@selector(onFollowTapped:) forControlEvents:UIControlEventTouchUpInside];
         UIImageView *imageV = [[UIImageView alloc] initWithFrame:CGRectMake(3, 3, 24, 24)];
         imageV.image = [UIImage imageNamed:@"follow_alert.png"];
         [btn addSubview:imageV];
@@ -257,7 +253,6 @@
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         btn.frame = CGRectMake(frame.size.width / 8, 12, 30, 30);
         [btn setImage:[UIImage imageNamed:@"viewCountBtn"] forState:UIControlStateNormal];
-        [btn addTarget:self action:@selector(onSeeBtnTapped:) forControlEvents:UIControlEventTouchUpInside];
         btn;
     });
     [self.bottomBannerV addSubview:self.viewCountBtn];
@@ -265,7 +260,6 @@
     // viewCountLab
     self.viewCountLab = ({
         UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(frame.size.width / 8 + 35, 15, 60, 20)];
-        lab.text = @"563";
         lab.textColor = [UIColor lightGrayColor];
         lab;
     });
@@ -285,7 +279,6 @@
     // likeCountLab
     self.likeCountLab = ({
         UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(frame.size.width /2 + 15, 18, 60, 20)];
-        lab.text = @"325";
         lab.textColor = [UIColor lightGrayColor];
         lab.userInteractionEnabled = YES;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
@@ -352,7 +345,8 @@
     
     // 初始化时不显示
 //    [self setHidden:YES];
-    
+    self.likeCount = 0;
+    self.viewCount = 0;
 }
 
 // *********************************************************************************************************************
@@ -365,6 +359,17 @@
 
 // *********************************************************************************************************************
 #pragma mark - Geters/Setters
+- (void)setLikeCount:(NSInteger)likeCount {
+    _likeCount = likeCount;
+    self.likeCountLab.text = [NSString stringWithFormat:@"%ld", (long)_likeCount];
+}
+
+- (void)setViewCount:(NSInteger)viewCount {
+    _viewCount = viewCount;
+    self.viewCountLab.text = [NSString stringWithFormat:@"%ld", (long)_viewCount];
+    self.onViewedBlock ? self.onViewedBlock(self.viewCount) : nil;
+}
+
 - (void)setInCenter:(BOOL)inCenter {
     _inCenter = inCenter;
     
