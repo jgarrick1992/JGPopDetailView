@@ -58,6 +58,7 @@
 // 点赞数量标签    ( bottomBannerV )
 @property (strong, nonatomic) UILabel *likeCountLab;
 
+// 父视图
 @property (strong, nonatomic) UIView *superView;
 
 @end
@@ -67,7 +68,7 @@
 // *********************************************************************************************************************
 #pragma mark - Init Mehtod
 - (id)initWithView:(UIView *)view
-                    andFrame:(CGRect)frame {
+          andFrame:(CGRect)frame {
     
     if (self = [super initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)]) {
         self.superView = view;

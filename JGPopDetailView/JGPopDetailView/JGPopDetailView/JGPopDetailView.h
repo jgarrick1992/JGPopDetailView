@@ -17,8 +17,8 @@ typedef enum : NSUInteger {
 
 // *********************************************************************************************************************
 #pragma mark - Init Mehtod
-- (id)initWithView:(UIView *)view andFrame:(CGRect)frame;
 - (id)initWithView:(UIView *)view;
+- (id)initWithView:(UIView *)view andFrame:(CGRect)frame;
 - (id)initWithWindow:(UIWindow *)window;
 - (id)initWithViewController:(UIViewController *)viewController;
 
